@@ -1,0 +1,41 @@
+{
+  "test_date": "2026-07-15",
+  "test_environment": {
+    "gpu": "A100 80GB × 4",
+    "cuda": "12.4",
+    "vllm": "0.6.3",
+    "python": "3.12"
+  },
+  "eval_set": {
+    "total_queries": 150,
+    "source": "电信客服真实日志抽样",
+    "annotation": "self-label + mentor cross-check 30条",
+    "categories": {
+      "套餐资费": 45,
+      "故障排查": 40,
+      "业务办理": 35,
+      "账单查询": 20,
+      "其他": 10
+    }
+  },
+  "retrieval_results": {
+    "dense_only_top5_hit_rate": 0.58,
+    "hybrid_rrf_top5_hit_rate": 0.72,
+    "reranker_top5_hit_rate": 0.76,
+    "improvement_vs_dense": "+31.0% (relative)"
+  },
+  "generation_results": {
+    "vllm_throughput": {
+      "baseline_transformers": "13.5 tok/s (8路并发)",
+      "vllm_continuous_batching": "39.2 tok/s (8路并发)",
+      "improvement": "2.9×"
+    },
+    "quantization": {
+      "model": "DeepSeek-R1-Distill-Qwen-14B",
+      "fp16_vram": "31.2 GB",
+      "int4_nf4_vram": "12.1 GB",
+      "saving": "61.2%",
+      "method": "nvidia-smi 峰值对比"
+    }
+  }
+}
