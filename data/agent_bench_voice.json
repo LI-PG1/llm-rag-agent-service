@@ -1,0 +1,1 @@
+{"scenario":"浙江移动云语音Agent","eval_date":"2026-07-20","asr":"FunASR","llm":"DeepSeek-R1-14B","tts":"Supertone-3","results":{"cer":"<8%","tts_latency":"<200ms","end_to_end_latency":"~1.5s"}}

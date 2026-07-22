@@ -1,0 +1,1 @@
+{"scenario":"南京银行检索中台","eval_date":"2026-07-16","embedding_model":"gte-Qwen2-7B","reranker_model":"bce-reranker-base_v1","results":{"long_tail_recall_gain":"+28%","embedding_qps":1200,"reranker_qps":100},"note":"长尾query含银行产品代号/生僻术语，BM25兜底关键词匹配"}

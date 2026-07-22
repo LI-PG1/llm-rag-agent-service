@@ -1,0 +1,1 @@
+{"scenario":"浙江电信客服RAG","eval_date":"2026-07-15","total_queries":150,"categories":{"套餐资费":45,"故障排查":40,"业务办理":35,"账单查询":20},"retrieval":{"dense_only_top5":0.58,"hybrid_rrf_top5":0.72,"plus_reranker_top5":0.76},"generation":{"model_routing":"14B简单/122B复杂","vllm_throughput":"2.9x","citation_verified":true}}

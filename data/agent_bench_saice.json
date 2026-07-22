@@ -1,0 +1,1 @@
+{"scenario":"上汽设备运维Agent","eval_date":"2026-07-18","total_scenarios":100,"orchestrator":"Qwen3.6-35B-A3B","critic":"DeepSeek-R1-14B","results":{"completion_rate":0.86,"tool_accuracy":0.91,"improvement_vs_single_turn":"+27%"}}
