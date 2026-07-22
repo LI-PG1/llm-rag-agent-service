@@ -1,11 +1,11 @@
 # llm-rag-agent-service
 
-RAG 知识问答 + 多工具 Agent 的融合服务。涵盖的项目场景：
+RAG 知识问答 + 多工具 Agent 的融合服务。覆盖以下场景：
 
-- **浙江电信**：客服文档 RAG（混合检索 + Corrective RAG）
-- **南京银行**：语义检索中台（独立 Embedding/Rerank 微服务）
-- **上汽集团**：设备运维 Agent（ReAct + 工具调用 + Critic）
-- **浙江移动云**：语音交互 Agent（ASR + LLM + TTS）
+- **省级运营商**：客服文档 RAG（混合检索 + Corrective RAG）
+- **商业银行**：语义检索中台（独立 Embedding/Rerank 微服务）
+- **大型制造企业**：设备运维 Agent（ReAct + 工具调用 + Critic）
+- **省级运营商**：语音交互 Agent（ASR + LLM + TTS）
 
 ## 架构
 
@@ -21,13 +21,14 @@ service/ — FastAPI 端点（/rag/query + /agent/run）
 
 ## Benchmark
 
-| 指标 | RAG（电信场景） | Agent（运维场景） |
-|------|----------------|------------------|
-| 评估集 | 150 条客服 query | 100 条工单 |
-| 核心指标 | top-5 命中率 76%（+31% vs 纯向量） | 多步完成率 86% |
-| 工具准确率 | — | 91% |
-| 失败主要原因 | — | 工具选择 57% / context overflow 21% |
-| 评测方式 | manual eval（mentor cross-check 30 条） | manual eval |
+| 指标 | RAG | Agent |
+|------|-----|-------|
+| 评估集规模 | 百余条客服 query | 百余条工单场景 |
+| 核心指标 | top-5 命中率 +31%（vs 纯向量） | 多步完成率 >85% |
+| 工具调用准确率 | — | >90% |
+| 评估方式 | manual eval + mentor 抽检 | manual eval |
+
+数据详情见 [data/](./data/) 目录。
 
 ## 相关仓库
 
