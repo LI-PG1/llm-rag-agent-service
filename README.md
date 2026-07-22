@@ -22,9 +22,7 @@ service/ — FastAPI 端点（/rag/query + /agent/run）
 | 工具调用准确率 | 不适用 | >90% |
 | 评估方式 | manual eval + mentor 抽检 | manual eval |
 
-数据详情见 data/ 目录。
-
 ## 相关仓库
 
-- llm-deploy-playbook
-- llm-model-optimization
+- [llm-deploy-playbook](https://github.com/LI-PG1/llm-deploy-playbook) — 部署笔记和踩坑记录
+- [llm-model-optimization](https://github.com/LI-PG1/llm-model-optimization) — 量化评估和微调模板
