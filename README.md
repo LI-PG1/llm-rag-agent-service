@@ -1,32 +1,33 @@
 # llm-rag-agent-service
 
-RAG 知识问答 + 多工具 Agent 的融合服务。
+RAG 知识问答 + 多工具 Agent 的融合服务。共用推理底座。
 
 ## 架构
 
 ```
-rag/ — 检索增强生成
-  文档加载 → 混合检索(Dense+BM25+RRF) → 重排序 → Sufficient Context → 生成 → Citation 验证
+rag/ — 检索增强生成管线
+  文档加载 → 混合检索 → 重排序 → 生成 → Citation 验证
 
-agent/ — 多工具 Agent
-  入口分流 → ReAct 规划循环 → 工具调用 → Critic 校验 → 回答
+agent/ — 多工具 Agent 引擎
+  入口分流 → ReAct 循环 → 工具调用 → Critic 校验 → 回答
 
-core/ — 共享组件（LLM 路由、对话记忆）
 service/ — FastAPI 端点（/rag/query + /agent/run）
 ```
+
+## Benchmark
+
+| 指标 | RAG | Agent |
+|------|-----|-------|
+| 评估集规模 | 150 条 query | 100 条工单 |
+| 核心指标 | top-5 命中率 76%（+31% vs 纯向量）| 多步完成率 86% |
+| 工具准确率 | — | 91% |
+| 失败主要原因 | — | 工具选择错误 57% / context overflow 21% |
 
 ## API
 
 ```bash
-# RAG 问答
-curl -X POST http://localhost:8000/rag/query \
-  -H "Content-Type: application/json" \
-  -d '{"query":"5G 套餐包含多少流量？"}'
-
-# Agent 任务
-curl -X POST http://localhost:8000/agent/run \
-  -H "Content-Type: application/json" \
-  -d '{"query":"查 M-2024 轴承库存并提交报修"}'
+curl -X POST http://localhost:8000/rag/query -d '{"query":"5G 套餐多少流量？"}'
+curl -X POST http://localhost:8000/agent/run -d '{"query":"查轴承库存并报修"}'
 ```
 
 ## 相关仓库
