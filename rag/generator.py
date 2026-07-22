@@ -15,7 +15,6 @@ from config import (
 )
 from document_processor import DocumentChunk
 
-
 class Generator:
     """多模型路由生成 + Citation 溯源 + Corrective RAG"""
 

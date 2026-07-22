@@ -15,7 +15,6 @@ from config import (
 )
 from document_processor import DocumentChunk
 
-
 class VectorStore:
     """统一向量存储接口"""
 

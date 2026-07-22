@@ -8,7 +8,6 @@ import time
 import os
 from typing import Optional
 
-
 class RepairOrderTool:
     """报修工单系统（模拟实现）"""
 

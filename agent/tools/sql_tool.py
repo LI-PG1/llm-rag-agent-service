@@ -11,7 +11,6 @@ import re
 import os
 from config import SQL_CONNECTION_STRING
 
-
 class SparePartsQueryTool:
     """备件库存查询（SQLite 实现，带注入防护）"""
 

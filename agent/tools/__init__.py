@@ -19,7 +19,6 @@ from tools.api_tool import RepairOrderTool
 
 logger = logging.getLogger(__name__)
 
-
 class Tool:
     """统一工具封装"""
 
@@ -44,30 +43,21 @@ class Tool:
         result = self.handler(**kwargs)
         return str(result)
 
-
-# ── 初始化工具实例 ──
 _rag = RagRetrievalTool()
 _sql = SparePartsQueryTool()
 _api = RepairOrderTool()
 
-
 def _rag_search(query: str, top_k: int = 5) -> str:
     return _rag.search(query, top_k=top_k)
-
 
 def _sql_query(sql: str) -> str:
     return _sql.query(sql)
 
-
 def _submit_repair(equipment_id: str, fault_desc: str, priority: str = "normal") -> str:
     return _api.submit(equipment_id, fault_desc, priority)
 
-
 def _check_repair_status(order_id: str) -> str:
     return _api.check_status(order_id)
-
-
-# ── 注册表 ──
 
 TOOL_REGISTRY: Dict[str, Tool] = {
     "manual_retrieval": Tool(
@@ -79,10 +69,8 @@ TOOL_REGISTRY: Dict[str, Tool] = {
     # ... 其余工具定义与之前相同 ...
 }
 
-
 def get_tools_for_llm() -> list:
     return [tool.to_openai_tool() for tool in TOOL_REGISTRY.values()]
-
 
 def execute_tool(name: str, arguments: dict, timeout: int = 30) -> str:
     """执行工具（含超时），异常向上传播供 orchestrator 重试"""

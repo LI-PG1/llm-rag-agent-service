@@ -15,9 +15,6 @@ from config import (
 )
 from document_processor import DocumentChunk
 
-
-# ── BM25 实现（纯 Python，无外部依赖）──
-
 class SimpleBM25:
     """轻量 BM25 实现，用于混合检索"""
 
@@ -63,9 +60,6 @@ class SimpleBM25:
         scores.sort(key=lambda x: x[0], reverse=True)
         return scores[:top_k]
 
-
-# ── RRF 融合 ──
-
 def rrf_fusion(
     dense_results: List[Tuple[float, DocumentChunk]],
     bm25_results: List[Tuple[float, int]],
@@ -105,7 +99,6 @@ def rrf_fusion(
                 scored_chunks.append((score, chunk))
 
     return scored_chunks[:top_k]
-
 
 class QueryRewriter:
     """查询改写：长尾低频 query 消歧（对应 Qwen3.5-122B-A10B）"""

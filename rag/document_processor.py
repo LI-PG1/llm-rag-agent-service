@@ -9,7 +9,6 @@ from typing import List, Dict, Any, Optional
 
 from config import DOCS_DIR, CHUNK_SIZE, CHUNK_OVERLAP
 
-
 class DocumentChunk:
     """切分后的文档块"""
     def __init__(self, text: str, metadata: Dict[str, Any]):
@@ -18,7 +17,6 @@ class DocumentChunk:
 
     def __repr__(self) -> str:
         return f"<DocumentChunk {self.metadata.get('source','')} | {len(self.text)} chars>"
-
 
 def load_documents(docs_dir: Optional[str] = None) -> List[Dict[str, Any]]:
     """
@@ -54,7 +52,6 @@ def load_documents(docs_dir: Optional[str] = None) -> List[Dict[str, Any]]:
         print(f"  [加载] {filename} ({len(text)} chars)")
 
     return documents
-
 
 def split_documents(documents: List[Dict[str, Any]]) -> List[DocumentChunk]:
     """
@@ -100,7 +97,6 @@ def split_documents(documents: List[Dict[str, Any]]) -> List[DocumentChunk]:
 
     print(f"  [切分完成] {len(chunks)} 个 chunk (size={CHUNK_SIZE}, overlap={CHUNK_OVERLAP})")
     return chunks
-
 
 def build_sample_docs(output_dir: str = None):
     """生成电信场景测试文档样本"""
@@ -193,7 +189,6 @@ Step 3: 联系客服查询线路质量
         print(f"  [生成] {filename}")
 
     print(f"  共 {len(samples)} 个测试文档")
-
 
 if __name__ == "__main__":
     print("生成测试文档...")

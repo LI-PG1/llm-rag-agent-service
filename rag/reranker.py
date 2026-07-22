@@ -7,7 +7,6 @@ from typing import List, Tuple
 from config import TOP_K_RERANK, RERANK_SCORE_THRESHOLD
 from document_processor import DocumentChunk
 
-
 class Reranker:
     """Cross-encoder 重排序"""
 

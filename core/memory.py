@@ -5,7 +5,6 @@
 
 from typing import List, Dict
 
-
 class ConversationMemory:
     """对话记忆管理器"""
 

@@ -9,7 +9,6 @@ from typing import Optional
 
 from config import LLM_BASE_URL, LLM_API_KEY, RAG_TOP_K
 
-
 class RagRetrievalTool:
     """设备维修手册检索"""
 

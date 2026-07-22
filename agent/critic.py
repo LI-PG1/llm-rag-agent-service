@@ -8,7 +8,6 @@ import json
 
 from config import LLM_BASE_URL, LLM_API_KEY, CRITIC_MODEL
 
-
 class Critic:
     """
     Reflexion 式 Critic 校验器。

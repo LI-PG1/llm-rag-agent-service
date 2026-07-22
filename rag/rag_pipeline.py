@@ -16,7 +16,6 @@ from retriever import SimpleBM25, rrf_fusion, QueryRewriter
 from reranker import Reranker
 from generator import Generator
 
-
 class RAGPipeline:
     """端到端 RAG 管线"""
 
@@ -88,13 +87,11 @@ class RAGPipeline:
         print(f"\n[查询] {user_input}")
         result = {"query": user_input, "steps": {}}
 
-        # ── 查询改写（长尾低频） ──
-        queries = self.query_rewriter.rewrite(user_input)
+                queries = self.query_rewriter.rewrite(user_input)
         result["steps"]["rewritten_queries"] = queries
         print(f"  [改写] {queries}")
 
-        # ── 向量检索 + BM25 + RRF ──
-        all_dense_chunks = []
+                all_dense_chunks = []
         all_scores_map = {}
 
         for q in queries:
@@ -112,19 +109,16 @@ class RAGPipeline:
         fused = rrf_fusion(all_dense_chunks, bm25_scores, self.bm25_chunks)
         result["steps"]["retrieval_count"] = len(fused)
 
-        # ── Reranker ──
-        reranked = self.reranker.rerank(user_input, fused, top_k=5)
+                reranked = self.reranker.rerank(user_input, fused, top_k=5)
         result["steps"]["reranked_count"] = len(reranked)
 
-        # ── Sufficient Context 校验 ──
-        chunks = [c for _, c in reranked]
+                chunks = [c for _, c in reranked]
         if not self.generator.sufficient_context(chunks):
             result["answer"] = "根据现有文档无法回答此问题。"
             result["insufficient_context"] = True
             return result
 
-        # ── 生成 + Citation ──
-        answer, citations = self.generator.generate(user_input, chunks, history)
+                answer, citations = self.generator.generate(user_input, chunks, history)
         result["answer"] = answer
         result["citations"] = citations
         result["model"] = self.generator.simple_model if not self.generator.is_complex_query(user_input) else self.generator.complex_model
@@ -142,7 +136,6 @@ class RAGPipeline:
         fused = rrf_fusion(dense, bm25_scored, self.bm25_chunks)
         reranked = self.reranker.rerank(user_input, fused, top_k=TOP_K_RERANK)
         return [c for _, c in reranked]
-
 
 if __name__ == "__main__":
     # 测试运行

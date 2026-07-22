@@ -5,7 +5,6 @@
 
 from config import SIMPLE_KEYWORDS
 
-
 class EntryRouter:
     """入口分流：判断 query 走 RAG 直回还是 Agent 循环"""
 
@@ -31,7 +30,6 @@ class EntryRouter:
         if self.is_simple_query(query):
             return "rag"
         return "agent"
-
 
 if __name__ == "__main__":
     router = EntryRouter()

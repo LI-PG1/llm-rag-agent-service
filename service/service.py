@@ -24,12 +24,10 @@ from config import (
 )
 from rag_pipeline import RAGPipeline
 
-# ── 日志 ──
 logging.basicConfig(level=getattr(logging, LOG_LEVEL), format=LOG_FORMAT)
 logger = logging.getLogger(__name__)
 
 pipeline: Optional[RAGPipeline] = None
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -41,25 +39,20 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("RAG Pipeline 已关闭")
 
-
 app = FastAPI(title="RAG 知识问答服务", version="1.0.0", lifespan=lifespan)
-
 
 class QueryRequest(BaseModel):
     query: str
     history: Optional[list] = None
 
-
 class RetrieveRequest(BaseModel):
     query: str
     top_k: int = 5
-
 
 class RetrieveResult(BaseModel):
     text: str
     source: str
     score: float
-
 
 class QueryResponse(BaseModel):
     query: str
@@ -69,7 +62,6 @@ class QueryResponse(BaseModel):
     steps: dict = {}
     degraded: bool = False  # 是否处于降级模式
 
-
 @app.get("/health")
 def health():
     return {
@@ -77,7 +69,6 @@ def health():
         "vector_count": pipeline.vector_store.count() if pipeline and pipeline.vector_store else 0,
         "degraded": False,
     }
-
 
 @app.post("/retrieve", response_model=list[RetrieveResult])
 def retrieve(req: RetrieveRequest):
@@ -100,7 +91,6 @@ def retrieve(req: RetrieveRequest):
             for r in bm25_results[:req.top_k]
         ]
 
-
 @app.post("/chat", response_model=QueryResponse)
 def chat(req: QueryRequest):
     """端到端问答（降级：#2 LLM 不可用时返回纯检索结果）"""
@@ -122,7 +112,6 @@ def chat(req: QueryRequest):
             model="degraded",
             degraded=True,
         )
-
 
 if __name__ == "__main__":
     logger.info(f"启动服务: {SERVICE_HOST}:{SERVICE_PORT}")
