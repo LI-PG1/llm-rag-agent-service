@@ -3,9 +3,9 @@
 RAG 知识问答 + 多工具 Agent 的融合服务。覆盖以下场景：
 
 - **某省级运营商**：客服文档 RAG（混合检索 + Corrective RAG）
+  语音交互 Agent（ASR + LLM + TTS）
 - **某地区商业银行**：语义检索中台（独立 Embedding/Rerank 微服务）
 - **大型制造业国企**：设备运维 Agent（ReAct + 工具调用 + Critic）
-- **某省级运营商（语音渠道）**：语音交互 Agent（ASR + LLM + TTS）
 
 ## 架构
 
