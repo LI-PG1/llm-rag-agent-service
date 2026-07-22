@@ -1,35 +1,35 @@
 # llm-rag-agent-service
 
-RAG 知识问答 + 多工具 Agent 的融合服务。共用推理底座。
+RAG 知识问答 + 多工具 Agent 的融合服务。
 
----
+## 架构
 
-## 目录
+```
+rag/ — 检索增强生成
+  文档加载 → 混合检索(Dense+BM25+RRF) → 重排序 → Sufficient Context → 生成 → Citation 验证
 
-* [README.md](./README.md)
-* [USAGE.md](./USAGE.md) — 快速使用指南
-* [requirements.txt](./requirements.txt)
-* [core/](./core/)
-  * [memory.py](./core/memory.py) — 对话记忆管理
-* [rag/](./rag/)
-  * [document_processor.py](./rag/document_processor.py) — 文档加载 & 切分
-  * [vector_store.py](./rag/vector_store.py) — 向量库
-  * [retriever.py](./rag/retriever.py) — 混合检索
-  * [reranker.py](./rag/reranker.py) — 重排序
-  * [generator.py](./rag/generator.py) — 生成 + Citation 验证
-  * [rag_pipeline.py](./rag/rag_pipeline.py) — 管线编排
-* [agent/](./agent/)
-  * [orchestrator.py](./agent/orchestrator.py) — ReAct 规划循环
-  * [critic.py](./agent/critic.py) — Critic 校验
-  * [router.py](./agent/router.py) — 入口分流
-  * [tools/](./agent/tools/)
-    * [__init__.py](./agent/tools/__init__.py) — 工具注册表
-    * [rag_tool.py](./agent/tools/rag_tool.py) — 手册检索
-    * [sql_tool.py](./agent/tools/sql_tool.py) — 备件库查询
-    * [api_tool.py](./agent/tools/api_tool.py) — 报修工单 API
-* [service/](./service/)
-  * [service.py](./service/service.py) — /rag/query + /agent/run
-  * [config.yaml](./service/config.yaml) — 服务配置
-* [data/](./data/)
-  * [rag_bench.json](./data/rag_bench.json) — RAG 评估
-  * [agent_bench.json](./data/agent_bench.json) — Agent 评估
+agent/ — 多工具 Agent
+  入口分流 → ReAct 规划循环 → 工具调用 → Critic 校验 → 回答
+
+core/ — 共享组件（LLM 路由、对话记忆）
+service/ — FastAPI 端点（/rag/query + /agent/run）
+```
+
+## API
+
+```bash
+# RAG 问答
+curl -X POST http://localhost:8000/rag/query \
+  -H "Content-Type: application/json" \
+  -d '{"query":"5G 套餐包含多少流量？"}'
+
+# Agent 任务
+curl -X POST http://localhost:8000/agent/run \
+  -H "Content-Type: application/json" \
+  -d '{"query":"查 M-2024 轴承库存并提交报修"}'
+```
+
+## 相关仓库
+
+- [llm-deploy-playbook](https://github.com/LI-PG1/llm-deploy-playbook)
+- [llm-model-optimization](https://github.com/LI-PG1/llm-model-optimization)
