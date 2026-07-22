@@ -9,7 +9,9 @@ RAG 知识问答 + 多工具 Agent 的融合服务。覆盖以下场景：
 
 ## 架构
 
-
+rag/ — 检索增强生成：文档加载 -> 混合检索 -> 重排序 -> 生成 -> Citation 验证
+agent/ — 多工具 Agent：入口分流 -> ReAct 循环 -> 工具调用 -> Critic 校验
+service/ — FastAPI 端点（/rag/query + /agent/run）
 
 ## Benchmark
 
@@ -20,9 +22,9 @@ RAG 知识问答 + 多工具 Agent 的融合服务。覆盖以下场景：
 | 工具调用准确率 | 不适用 | >90% |
 | 评估方式 | manual eval + mentor 抽检 | manual eval |
 
-数据详情见 [data/](./data/) 目录。
+数据详情见 data/ 目录。
 
 ## 相关仓库
 
-- [llm-deploy-playbook](https://github.com/LI-PG1/llm-deploy-playbook)
-- [llm-model-optimization](https://github.com/LI-PG1/llm-model-optimization)
+- llm-deploy-playbook
+- llm-model-optimization
